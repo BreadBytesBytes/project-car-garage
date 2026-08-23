@@ -1,0 +1,29 @@
+{
+  "name": "project-car-garage",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "npm@12.0.2",
+  "engines": {
+    "node": ">=24.19.0 <25"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "npm run start --workspace @project-car-garage/mobile",
+    "web": "npm run web --workspace @project-car-garage/mobile",
+    "export:web": "npm run export:web --workspace @project-car-garage/mobile",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "node --test",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm test"
+  },
+  "devDependencies": {
+    "eslint": "9.39.5",
+    "eslint-config-expo": "57.0.1",
+    "prettier": "3.9.6"
+  }
+}

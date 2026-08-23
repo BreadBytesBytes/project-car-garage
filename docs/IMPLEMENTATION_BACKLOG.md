@@ -26,10 +26,10 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 - **Status:** TODO
 - **Depends on:** none
-- **Related:** ADR-001..004, ADR-020; NFR-009..010
+- **Related:** ADR-001..004, ADR-020, ADR-024; NFR-009..010
 - **Work:**
   - Initialize Git repository/project workspace.
-  - Create `apps/mobile`, `packages/domain`, `packages/database`, `packages/recommendation-engine`, `packages/knowledge`, `packages/ai`, `packages/shared`, `supabase/migrations`, `supabase/functions`.
+  - Create `apps/mobile`, `packages/domain`, `packages/database`, `packages/recommendation-engine`, `packages/knowledge`, `packages/ai`, `packages/ui`, `packages/shared`, `supabase/migrations`, `supabase/functions`.
   - Initialize Expo + React Native + TypeScript + Expo Router in `apps/mobile`.
   - Configure package manager/workspaces and shared TypeScript config.
   - Add `.gitignore`, `.env.example`, formatting/lint config.
@@ -86,7 +86,8 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 - **Status:** TODO
 - **Depends on:** P0-01, P0-04
 - **FR/AC:** FR-NAV-001, FR-NAV-002, FR-NAV-006, FR-NAV-008
-- **Work:** bottom navigation: Garage, Work, Events, Parts, More; persistent Quick Add affordance; native back hierarchy; empty-state placeholders.
+- **Related:** ADR-024
+- **Work:** bottom navigation: Garage, Work, Events, Parts, More; persistent Quick Add affordance; native back hierarchy; empty-state placeholders. Use gluestack-ui as the component foundation and keep shared product components and design tokens in `packages/ui`.
 - **Tests/checks:** route tests/smoke navigation on physical device or emulator.
 - **Done when:** all primary destinations exist without feature implementation.
 

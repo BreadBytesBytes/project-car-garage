@@ -53,13 +53,30 @@ project-car-garage/
 │   ├── recommendation-engine/
 │   ├── knowledge/
 │   ├── ai/
+│   ├── ui/
 │   └── shared/
 └── supabase/
     ├── migrations/
     └── functions/
 ```
 
-The code folders are created during Phase 0. Documentation can be committed first.
+Phase 0 creates these code folders without implementing product features.
+
+## Development
+
+Prerequisites: Node.js 24.19.0 and npm 12.
+
+```sh
+npm ci
+npm run check
+npm start
+```
+
+Run the universal web shell with `npm run web`, or verify its production bundle
+with `npm run export:web`.
+
+Environment variables are not required for P0-01/P0-02. Supabase setup begins
+in P0-03; never commit local `.env` files.
 
 ## Implementation order
 
