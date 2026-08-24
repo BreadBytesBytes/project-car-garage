@@ -63,6 +63,15 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 - **Tests/checks:** auth service unit/integration tests; unauthenticated user cannot access authenticated screens.
 - **Done when:** a new account reaches authenticated app shell and owns one default Garage.
 
+### P0-04A — Complete account recovery and credential management
+
+- **Status:** IN PROGRESS — automated checks complete; hosted email/deep-link validation pending
+- **Depends on:** P0-04
+- **FR/AC:** FR-ACC-002; FR-SET-001; Security 14.1
+- **Work:** password-reset request and native return link; set a recovered password; resend signup confirmation; authenticated email/password updates; neutral signed-out responses that do not reveal whether an account exists.
+- **Tests/checks:** auth service and recovery-link parser tests; protected account route; manual email delivery and native deep-link checks on a physical device.
+- **Done when:** a user can recover a known-email account and manage credentials without exposing account existence or putting privileged credentials in the client.
+
 ### P0-05 — Create first database migration set and ownership model
 
 - **Status:** DONE

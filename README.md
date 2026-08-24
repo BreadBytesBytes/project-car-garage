@@ -101,6 +101,36 @@ client-side insert and delete access is intentionally unavailable. Run
 `npm run db:test` after `db:reset` to verify the schema and User A/User B RLS
 isolation tests in `supabase/tests`.
 
+## Authentication email and deep links
+
+The mobile client uses Supabase Auth for signup, sign-in, password recovery,
+confirmation resend, and credential updates. Its native URL scheme is
+`project-car-garage`.
+
+In the Supabase Dashboard, open **Authentication → URL Configuration** and add
+this redirect URL for development builds:
+
+```text
+project-car-garage://**
+```
+
+Expo Go generates an `exp://` URL instead of the native scheme. To test an
+email link in Expo Go, also allow the exact development URL shown by Expo, for
+example `exp://192.168.1.10:8081/--/**`. Keep this limited to the development
+Supabase project because the LAN address can change.
+
+Supabase's built-in email sender is rate-limited and intended for development.
+Before testing repeated email flows or inviting real users, configure custom
+SMTP under **Authentication → SMTP Settings** with a verified sender. Keep SMTP
+credentials in Supabase, never in the repository or mobile environment file.
+
+Manual device validation:
+
+1. From sign-in, request a password reset and open the link on the phone.
+2. Set a new password, then sign in with it.
+3. Resend a pending signup confirmation and verify its link.
+4. While signed in, open Account settings and test email and password changes.
+
 ## Implementation order
 
 1. Phase 0 — Foundation

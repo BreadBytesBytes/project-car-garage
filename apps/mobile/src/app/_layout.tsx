@@ -24,11 +24,14 @@ function RootNavigator() {
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="reset-password" />
       <Stack.Protected guard={!session}>
         <Stack.Screen name="sign-in" />
+        <Stack.Screen name="recover-account" />
       </Stack.Protected>
       <Stack.Protected guard={Boolean(session)}>
         <Stack.Screen name="index" />
+        <Stack.Screen name="account" />
       </Stack.Protected>
     </Stack>
   );

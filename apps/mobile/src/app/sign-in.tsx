@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'expo-router';
 import {
   ActivityIndicator,
   KeyboardAvoidingView,
@@ -15,6 +16,7 @@ import { supabase } from '../lib/supabase';
 import { signInWithPassword, signUpWithPassword } from '../services/auth';
 
 export default function SignInScreen() {
+  const router = useRouter();
   const { configured } = useAuth();
   const [email, setEmail] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -139,6 +141,20 @@ export default function SignInScreen() {
             : 'Need an account? Sign up'}
         </Text>
       </Pressable>
+
+      {!isSignUp ? (
+        <Pressable
+          accessibilityRole="button"
+          disabled={loading}
+          onPress={() => router.push('./recover-account')}
+          style={({ pressed }) => [
+            styles.secondaryButton,
+            pressed && styles.pressed,
+          ]}
+        >
+          <Text>Forgot password or need a new confirmation email?</Text>
+        </Pressable>
+      ) : null}
     </KeyboardAvoidingView>
   );
 }

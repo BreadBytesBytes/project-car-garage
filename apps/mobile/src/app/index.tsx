@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { useAuth } from '../auth/AuthProvider';
@@ -6,6 +7,7 @@ import { supabase } from '../lib/supabase';
 import { signOut } from '../services/auth';
 
 export default function HomeScreen() {
+  const router = useRouter();
   const { session } = useAuth();
   const [error, setError] = useState<string | null>(null);
 
@@ -20,6 +22,13 @@ export default function HomeScreen() {
       <Text style={styles.title}>Project Car Garage</Text>
       <Text>Signed in as {session?.user.email}</Text>
       {error ? <Text style={styles.error}>{error}</Text> : null}
+      <Pressable
+        accessibilityRole="button"
+        onPress={() => router.push('./account')}
+        style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+      >
+        <Text style={styles.buttonText}>Account settings</Text>
+      </Pressable>
       <Pressable
         accessibilityRole="button"
         onPress={() => void handleSignOut()}
