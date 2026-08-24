@@ -56,7 +56,7 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P0-04 — Implement authentication foundation
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** P0-03
 - **FR/AC:** FR-ACC-001, FR-ACC-002, FR-ACC-003, FR-ACC-008; AC-001
 - **Work:** email/password signup/sign-in/sign-out; authenticated route boundary; create default `My Garage` on account setup.
