@@ -88,10 +88,10 @@ export default function AccountScreen() {
     <ScrollView contentContainerStyle={styles.container}>
       <Pressable
         accessibilityRole="button"
-        onPress={() => router.back()}
+        onPress={() => router.replace('/')}
         style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
       >
-        <Text>Back</Text>
+        <Text>Back to garage</Text>
       </Pressable>
       <Text style={styles.title}>Account</Text>
       <Text style={styles.body}>Signed in as {session?.user.email}</Text>

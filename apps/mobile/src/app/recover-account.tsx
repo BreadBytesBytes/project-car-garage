@@ -126,7 +126,7 @@ export default function RecoverAccountScreen() {
       <Pressable
         accessibilityRole="button"
         disabled={Boolean(loading)}
-        onPress={() => router.back()}
+        onPress={() => router.replace('/sign-in')}
         style={({ pressed }) => [
           styles.secondaryButton,
           pressed && styles.pressed,

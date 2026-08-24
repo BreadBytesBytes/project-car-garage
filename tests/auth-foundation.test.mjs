@@ -155,10 +155,18 @@ test('Expo Router protects authenticated and unauthenticated screens', async () 
   assert.match(layout, /<Stack\.Screen name="reset-password"/);
   assert.match(layout, /<Stack\.Screen name="index"/);
   assert.match(layout, /<Stack\.Screen name="account"/);
+  assert.ok(
+    layout.indexOf('<Stack.Screen name="sign-in"') <
+      layout.indexOf('<Stack.Screen name="reset-password"'),
+  );
 });
 
 test('signed-out recovery messages do not reveal account existence', async () => {
-  const [screen, resetScreen] = await Promise.all([
+  const [accountScreen, screen, resetScreen] = await Promise.all([
+    readFile(
+      new URL('../apps/mobile/src/app/account.tsx', import.meta.url),
+      'utf8',
+    ),
     readFile(
       new URL('../apps/mobile/src/app/recover-account.tsx', import.meta.url),
       'utf8',
@@ -171,5 +179,7 @@ test('signed-out recovery messages do not reveal account existence', async () =>
 
   assert.match(screen, /If an account matches that email/);
   assert.match(screen, /If that account still needs confirmation/);
+  assert.doesNotMatch(screen, /router\.back/);
+  assert.doesNotMatch(accountScreen, /router\.back/);
   assert.match(resetScreen, /if \(!session \|\| !recovering\)/);
 });
