@@ -95,6 +95,12 @@ npm run supabase:stop
 created and linked interactively before the first `npx supabase db push`; do
 not store the CLI access token or database password in the repository.
 
+The first migrations create a private profile and one `My Garage` when an Auth
+user is created. Authenticated clients may read and update only their own rows;
+client-side insert and delete access is intentionally unavailable. Run
+`npm run db:test` after `db:reset` to verify the schema and User A/User B RLS
+isolation tests in `supabase/tests`.
+
 ## Implementation order
 
 1. Phase 0 — Foundation

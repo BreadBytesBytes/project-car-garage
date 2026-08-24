@@ -74,7 +74,7 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P0-06 — Implement Row Level Security baseline and isolation tests
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** P0-05
 - **FR/AC:** FR-SET-009; AC-012; NFR-008
 - **Work:** enable RLS on exposed user-owned tables; policies based on authenticated ownership; create repeatable cross-user isolation tests.
