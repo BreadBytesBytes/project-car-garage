@@ -65,7 +65,7 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P0-05 — Create first database migration set and ownership model
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** P0-03
 - **FR/AC:** FR-ACC-001..007; Security 14.1
 - **Work:** create initial profile/garage ownership tables and common timestamps/UUID conventions; define archive/delete patterns.
