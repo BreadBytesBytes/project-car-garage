@@ -75,8 +75,25 @@ npm start
 Run the universal web shell with `npm run web`, or verify its production bundle
 with `npm run export:web`.
 
-Environment variables are not required for P0-01/P0-02. Supabase setup begins
-in P0-03; never commit local `.env` files.
+Copy `.env.example` to `.env.local` and set the public URL and publishable key
+printed by `npm run supabase:status`. Never commit local `.env` files, database
+passwords, access tokens, or service-role keys.
+
+## Local Supabase
+
+Install a Docker-compatible container runtime, then run:
+
+```sh
+npm run supabase:start
+npm run db:reset
+npm run db:test
+npm run supabase:stop
+```
+
+`db:reset` rebuilds the local database and applies every file in
+`supabase/migrations` in filename order. A hosted development project must be
+created and linked interactively before the first `npx supabase db push`; do
+not store the CLI access token or database password in the repository.
 
 ## Implementation order
 

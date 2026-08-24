@@ -14,6 +14,11 @@
     "start": "npm run start --workspace @project-car-garage/mobile",
     "web": "npm run web --workspace @project-car-garage/mobile",
     "export:web": "npm run export:web --workspace @project-car-garage/mobile",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop",
+    "supabase:status": "supabase status",
+    "db:reset": "supabase db reset",
+    "db:test": "supabase test db",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
@@ -24,6 +29,7 @@
   "devDependencies": {
     "eslint": "9.39.5",
     "eslint-config-expo": "57.0.1",
-    "prettier": "3.9.6"
+    "prettier": "3.9.6",
+    "supabase": "^2.115.0"
   }
 }

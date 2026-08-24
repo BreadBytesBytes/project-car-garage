@@ -47,7 +47,7 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P0-03 — Create Supabase development project and project configuration
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** P0-01
 - **Related:** ADR-003; Section 18
 - **Work:** create free Supabase project; add project-scoped Supabase CLI dependency; initialize `supabase/`; document environment variables; do not commit secrets.
