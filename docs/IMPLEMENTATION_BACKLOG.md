@@ -65,7 +65,7 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P0-04A — Complete account recovery and credential management
 
-- **Status:** IN PROGRESS — automated checks complete; hosted email/deep-link validation pending
+- **Status:** DONE
 - **Depends on:** P0-04
 - **FR/AC:** FR-ACC-002; FR-SET-001; Security 14.1
 - **Work:** password-reset request and native return link; set a recovered password; resend signup confirmation; authenticated email/password updates; neutral signed-out responses that do not reveal whether an account exists.
