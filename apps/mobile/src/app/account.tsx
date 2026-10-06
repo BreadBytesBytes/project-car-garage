@@ -1,5 +1,4 @@
 import * as Linking from 'expo-linking';
-import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
   ActivityIndicator,
@@ -18,7 +17,6 @@ import { updateEmail, updatePassword } from '../services/auth';
 type RequestType = 'email' | 'password';
 
 export default function AccountScreen() {
-  const router = useRouter();
   const { session } = useAuth();
   const [confirmation, setConfirmation] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
@@ -86,13 +84,6 @@ export default function AccountScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Pressable
-        accessibilityRole="button"
-        onPress={() => router.replace('/')}
-        style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
-      >
-        <Text>Back to garage</Text>
-      </Pressable>
       <Text style={styles.title}>Account</Text>
       <Text style={styles.body}>Signed in as {session?.user.email}</Text>
 
@@ -178,11 +169,6 @@ export default function AccountScreen() {
 }
 
 const styles = StyleSheet.create({
-  backButton: {
-    alignSelf: 'flex-start',
-    minHeight: 48,
-    paddingVertical: 14,
-  },
   body: {
     color: '#4b5563',
     marginBottom: 12,

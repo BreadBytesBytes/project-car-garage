@@ -92,13 +92,14 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P0-07 — Build five-tab navigation shell + More + Quick Add placeholder
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** P0-01, P0-04
 - **FR/AC:** FR-NAV-001, FR-NAV-002, FR-NAV-006, FR-NAV-008
 - **Related:** ADR-024
 - **Work:** bottom navigation: Garage, Work, Events, Parts, More; persistent Quick Add affordance; native back hierarchy; empty-state placeholders. Use gluestack-ui as the component foundation and keep shared product components and design tokens in `packages/ui`.
 - **Tests/checks:** route tests/smoke navigation on physical device or emulator.
 - **Done when:** all primary destinations exist without feature implementation.
+- **Follow-up:** TODO — add a visible in-screen Back/Close button to the Quick Add placeholder; retain native header navigation.
 
 ### P0-08 — Add feature flag and developer/debug foundation
 
