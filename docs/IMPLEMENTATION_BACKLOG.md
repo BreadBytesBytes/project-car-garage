@@ -143,7 +143,7 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P1-02 — Manual vehicle onboarding vertical slice
 
-- **Status:** IN PROGRESS
+- **Status:** DONE
 - **Depends on:** P1-01
 - **FR/AC:** FR-VEH-001..009; AC-001
 - **Work:** manual year/make/model; stock/modified/swapped progressive disclosure; mileage; usage; optional modifications; skip advanced fields.
