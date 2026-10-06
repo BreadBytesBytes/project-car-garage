@@ -107,6 +107,8 @@ export type CreateVehicleInput = Readonly<{
   nickname?: string;
   vin?: string;
   notes?: string;
+  components?: readonly ReplacementComponentInput[];
+  modifications?: readonly AddModificationInput[];
 }>;
 
 export type ReplacementComponentInput = Readonly<{

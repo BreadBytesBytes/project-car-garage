@@ -53,6 +53,14 @@ function RootNavigator() {
           name="developer"
           options={{ headerShown: true, title: 'Developer' }}
         />
+        <Stack.Screen
+          name="vehicles/new"
+          options={{ headerShown: true, title: 'Add Vehicle' }}
+        />
+        <Stack.Screen
+          name="vehicles/[vehicleId]"
+          options={{ headerShown: true, title: 'Vehicle Overview' }}
+        />
       </Stack.Protected>
       <Stack.Screen name="reset-password" />
     </Stack>
