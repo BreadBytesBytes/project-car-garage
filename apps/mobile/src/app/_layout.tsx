@@ -2,6 +2,7 @@ import { Stack } from 'expo-router';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
 import { AuthProvider, useAuth } from '../auth/AuthProvider';
+import { FeatureFlagProvider } from '../features/FeatureFlagProvider';
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -10,7 +11,9 @@ export const unstable_settings = {
 export default function RootLayout() {
   return (
     <AuthProvider>
-      <RootNavigator />
+      <FeatureFlagProvider>
+        <RootNavigator />
+      </FeatureFlagProvider>
     </AuthProvider>
   );
 }
@@ -45,6 +48,10 @@ function RootNavigator() {
             presentation: 'modal',
             title: 'Quick Add',
           }}
+        />
+        <Stack.Screen
+          name="developer"
+          options={{ headerShown: true, title: 'Developer' }}
         />
       </Stack.Protected>
       <Stack.Screen name="reset-password" />

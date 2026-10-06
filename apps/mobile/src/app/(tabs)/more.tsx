@@ -10,12 +10,15 @@ import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { useAuth } from '../../auth/AuthProvider';
+import { useFeatureFlags } from '../../features/FeatureFlagProvider';
+import { isFeatureEnabled } from '../../features/featureFlags';
 import { supabase } from '../../lib/supabase';
 import { signOut } from '../../services/auth';
 
 export default function MoreScreen() {
   const router = useRouter();
   const { session } = useAuth();
+  const { flags } = useFeatureFlags();
   const [error, setError] = useState<string | null>(null);
 
   async function handleSignOut() {
@@ -37,6 +40,18 @@ export default function MoreScreen() {
           <ButtonText style={styles.buttonText}>Account settings</ButtonText>
         </Button>
         <Button
+          accessibilityLabel="Open developer controls"
+          onPress={() => router.push('/developer')}
+          style={({ pressed }) => [
+            styles.secondaryButton,
+            pressed && styles.pressed,
+          ]}
+        >
+          <ButtonText style={styles.secondaryButtonText}>
+            Developer controls
+          </ButtonText>
+        </Button>
+        <Button
           accessibilityLabel="Sign out"
           onPress={() => void handleSignOut()}
           style={({ pressed }) => [
@@ -46,10 +61,17 @@ export default function MoreScreen() {
         >
           <ButtonText style={styles.secondaryButtonText}>Sign out</ButtonText>
         </Button>
-        <EmptyState
-          body="Garage Inbox, search, references, knowledge, archives, and additional settings will appear here as they are built."
-          title="More garage tools are coming"
-        />
+        {isFeatureEnabled(flags, 'knowledge') ? (
+          <EmptyState
+            body="This placeholder is visible because the Knowledge feature flag is enabled."
+            title="Knowledge experiment enabled"
+          />
+        ) : (
+          <EmptyState
+            body="Garage Inbox, search, references, knowledge, archives, and additional settings will appear here as they are built."
+            title="More garage tools are coming"
+          />
+        )}
       </View>
     </Screen>
   );

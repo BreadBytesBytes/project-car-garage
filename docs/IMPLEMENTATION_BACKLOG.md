@@ -103,7 +103,7 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P0-08 — Add feature flag and developer/debug foundation
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** P0-04
 - **FR/AC:** FR-SET-010
 - **Work:** simple typed feature-flag service/config; private developer screen; flags for AI, native share, knowledge, debug scoring.
