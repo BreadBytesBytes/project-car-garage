@@ -121,7 +121,7 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P0-10 — Foundation review checkpoint
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** P0-01..09
 - **Related:** Phase 0 exit
 - **Work:** run full checks; review secrets/RLS/navigation/dependency setup; update README setup commands.
