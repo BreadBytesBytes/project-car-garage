@@ -29,6 +29,7 @@ Material changes must be recorded rather than silently introduced in implementat
 | ADR-021 | Basic saved URLs are V1; native receive-share is stretch | Copy/paste captures most of the value with less platform-specific work. |
 | ADR-022 | Voice recording is V1; transcription optional/on-demand | Audio remains useful without AI cost. |
 | ADR-023 | Events support an external URL | Registration/reference pages such as MotorsportReg must remain easy to reopen. |
+| ADR-024 | gluestack-ui is the V1 component foundation | Keep shared design tokens and product-specific reusable components in `packages/ui`; adding another UI/component framework requires an ADR. |
 
 ## ADR change process
 

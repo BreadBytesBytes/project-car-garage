@@ -125,3 +125,10 @@ A task is not done merely because the UI renders. It is done when applicable:
 - Accessibility basics are present.
 - No unapproved Future Ideas were introduced.
 - Documentation is updated when contracts or behavior changed.
+
+## UI foundation
+
+Use gluestack-ui as the V1 component foundation. Build product-specific
+reusable components in `packages/ui`. Do not introduce another UI/component
+framework without an ADR. Prefer shared design tokens and components over
+screen-specific styling.

@@ -429,6 +429,7 @@ Future optional service: controlled knowledge-ingestion worker</th>
 /packages/recommendation-engine<br />
 /packages/knowledge<br />
 /packages/ai<br />
+/packages/ui<br />
 /packages/shared<br />
 /supabase/migrations<br />
 /supabase/functions<br />
@@ -1151,6 +1152,7 @@ Current OpenAI API pricing identifies GPT-5.6 Luna as a cost-sensitive model opt
 | **ADR-021** | Basic saved URLs are V1; native receive-share is stretch.                |
 | **ADR-022** | Voice recording is V1; transcription is optional/on-demand by default.   |
 | **ADR-023** | Events support an external event/registration URL.                       |
+| **ADR-024** | gluestack-ui is the V1 component foundation; shared product UI belongs in `packages/ui`. |
 
 # 21. Risks and Open Questions
 

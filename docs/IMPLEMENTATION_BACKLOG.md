@@ -24,12 +24,12 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P0-01 — Initialize monorepo and tooling
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** none
-- **Related:** ADR-001..004, ADR-020; NFR-009..010
+- **Related:** ADR-001..004, ADR-020, ADR-024; NFR-009..010
 - **Work:**
   - Initialize Git repository/project workspace.
-  - Create `apps/mobile`, `packages/domain`, `packages/database`, `packages/recommendation-engine`, `packages/knowledge`, `packages/ai`, `packages/shared`, `supabase/migrations`, `supabase/functions`.
+  - Create `apps/mobile`, `packages/domain`, `packages/database`, `packages/recommendation-engine`, `packages/knowledge`, `packages/ai`, `packages/ui`, `packages/shared`, `supabase/migrations`, `supabase/functions`.
   - Initialize Expo + React Native + TypeScript + Expo Router in `apps/mobile`.
   - Configure package manager/workspaces and shared TypeScript config.
   - Add `.gitignore`, `.env.example`, formatting/lint config.
@@ -38,7 +38,7 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P0-02 — Establish CI quality gates
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** P0-01
 - **Related:** NFR-003, NFR-009; Section 17
 - **Work:** add CI workflow for install, format check, lint, typecheck, unit tests; no deployment required yet.
@@ -47,7 +47,7 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P0-03 — Create Supabase development project and project configuration
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** P0-01
 - **Related:** ADR-003; Section 18
 - **Work:** create free Supabase project; add project-scoped Supabase CLI dependency; initialize `supabase/`; document environment variables; do not commit secrets.
@@ -56,16 +56,25 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P0-04 — Implement authentication foundation
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** P0-03
 - **FR/AC:** FR-ACC-001, FR-ACC-002, FR-ACC-003, FR-ACC-008; AC-001
 - **Work:** email/password signup/sign-in/sign-out; authenticated route boundary; create default `My Garage` on account setup.
 - **Tests/checks:** auth service unit/integration tests; unauthenticated user cannot access authenticated screens.
 - **Done when:** a new account reaches authenticated app shell and owns one default Garage.
 
+### P0-04A — Complete account recovery and credential management
+
+- **Status:** DONE
+- **Depends on:** P0-04
+- **FR/AC:** FR-ACC-002; FR-SET-001; Security 14.1
+- **Work:** password-reset request and native return link; set a recovered password; resend signup confirmation; authenticated email/password updates; neutral signed-out responses that do not reveal whether an account exists.
+- **Tests/checks:** auth service and recovery-link parser tests; protected account route; manual email delivery and native deep-link checks on a physical device.
+- **Done when:** a user can recover a known-email account and manage credentials without exposing account existence or putting privileged credentials in the client.
+
 ### P0-05 — Create first database migration set and ownership model
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** P0-03
 - **FR/AC:** FR-ACC-001..007; Security 14.1
 - **Work:** create initial profile/garage ownership tables and common timestamps/UUID conventions; define archive/delete patterns.
@@ -74,7 +83,7 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P0-06 — Implement Row Level Security baseline and isolation tests
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** P0-05
 - **FR/AC:** FR-SET-009; AC-012; NFR-008
 - **Work:** enable RLS on exposed user-owned tables; policies based on authenticated ownership; create repeatable cross-user isolation tests.
@@ -86,7 +95,8 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 - **Status:** TODO
 - **Depends on:** P0-01, P0-04
 - **FR/AC:** FR-NAV-001, FR-NAV-002, FR-NAV-006, FR-NAV-008
-- **Work:** bottom navigation: Garage, Work, Events, Parts, More; persistent Quick Add affordance; native back hierarchy; empty-state placeholders.
+- **Related:** ADR-024
+- **Work:** bottom navigation: Garage, Work, Events, Parts, More; persistent Quick Add affordance; native back hierarchy; empty-state placeholders. Use gluestack-ui as the component foundation and keep shared product components and design tokens in `packages/ui`.
 - **Tests/checks:** route tests/smoke navigation on physical device or emulator.
 - **Done when:** all primary destinations exist without feature implementation.
 

@@ -53,13 +53,83 @@ project-car-garage/
 │   ├── recommendation-engine/
 │   ├── knowledge/
 │   ├── ai/
+│   ├── ui/
 │   └── shared/
 └── supabase/
     ├── migrations/
     └── functions/
 ```
 
-The code folders are created during Phase 0. Documentation can be committed first.
+Phase 0 creates these code folders without implementing product features.
+
+## Development
+
+Prerequisites: Node.js 24.19.0 and npm 12.
+
+```sh
+npm ci
+npm run check
+npm start
+```
+
+Run the universal web shell with `npm run web`, or verify its production bundle
+with `npm run export:web`.
+
+Copy `.env.example` to `.env.local` and set the public URL and publishable key
+printed by `npm run supabase:status`. Never commit local `.env` files, database
+passwords, access tokens, or service-role keys.
+
+## Local Supabase
+
+Install a Docker-compatible container runtime, then run:
+
+```sh
+npm run supabase:start
+npm run db:reset
+npm run db:test
+npm run supabase:stop
+```
+
+`db:reset` rebuilds the local database and applies every file in
+`supabase/migrations` in filename order. A hosted development project must be
+created and linked interactively before the first `npx supabase db push`; do
+not store the CLI access token or database password in the repository.
+
+The first migrations create a private profile and one `My Garage` when an Auth
+user is created. Authenticated clients may read and update only their own rows;
+client-side insert and delete access is intentionally unavailable. Run
+`npm run db:test` after `db:reset` to verify the schema and User A/User B RLS
+isolation tests in `supabase/tests`.
+
+## Authentication email and deep links
+
+The mobile client uses Supabase Auth for signup, sign-in, password recovery,
+confirmation resend, and credential updates. Its native URL scheme is
+`project-car-garage`.
+
+In the Supabase Dashboard, open **Authentication → URL Configuration** and add
+this redirect URL for development builds:
+
+```text
+project-car-garage://**
+```
+
+Expo Go generates an `exp://` URL instead of the native scheme. To test an
+email link in Expo Go, also allow the exact development URL shown by Expo, for
+example `exp://192.168.1.10:8081/--/**`. Keep this limited to the development
+Supabase project because the LAN address can change.
+
+Supabase's built-in email sender is rate-limited and intended for development.
+Before testing repeated email flows or inviting real users, configure custom
+SMTP under **Authentication → SMTP Settings** with a verified sender. Keep SMTP
+credentials in Supabase, never in the repository or mobile environment file.
+
+Manual device validation:
+
+1. From sign-in, request a password reset and open the link on the phone.
+2. Set a new password, then sign in with it.
+3. Resend a pending signup confirmation and verify its link.
+4. While signed in, open Account settings and test email and password changes.
 
 ## Implementation order
 
