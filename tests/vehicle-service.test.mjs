@@ -52,13 +52,18 @@ test('VehicleService validates input and maps create results', async () => {
     usageModes: ['street', 'track'],
     primaryUsageMode: 'street',
     nickname: 'S13',
+    components: [
+      { componentType: 'chassis', origin: 'original', model: 'S13' },
+      { componentType: 'engine', origin: 'swapped', model: 'M50' },
+    ],
   });
 
   assert.equal(result.ok, true);
   assert.equal(result.data.garageId, vehicleRow.garage_id);
   assert.equal(result.data.currentMileage, 150000);
-  assert.equal(calls[0].name, 'create_vehicle');
+  assert.equal(calls[0].name, 'onboard_vehicle');
   assert.deepEqual(calls[0].input.vehicle_usage_modes, ['street', 'track']);
+  assert.equal(calls[0].input.replacement_components[1].model, 'M50');
 });
 
 test('VehicleService rejects bad mileage before calling the database', async () => {

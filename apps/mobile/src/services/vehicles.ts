@@ -100,7 +100,7 @@ export class SupabaseVehicleService implements VehicleService {
     const validationError = invalidCreateInput(input);
     if (validationError) return serviceFailure('VALIDATION', validationError);
 
-    const { data, error } = await this.client.rpc('create_vehicle', {
+    const { data, error } = await this.client.rpc('onboard_vehicle', {
       vehicle_year: input.year,
       vehicle_make: input.make,
       vehicle_model: input.model,
@@ -108,6 +108,8 @@ export class SupabaseVehicleService implements VehicleService {
       vehicle_mileage: input.mileage,
       vehicle_mileage_unit: input.mileageUnit,
       vehicle_usage_modes: [...input.usageModes],
+      replacement_components: input.components ?? [],
+      added_modifications: input.modifications ?? [],
       vehicle_primary_usage_mode: input.primaryUsageMode ?? null,
       vehicle_trim: input.trim ?? null,
       vehicle_nickname: input.nickname ?? null,
