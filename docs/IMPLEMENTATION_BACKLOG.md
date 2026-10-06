@@ -135,7 +135,7 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P1-01 — Vehicle schema and VehicleService
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** Phase 0
 - **FR/AC:** FR-VEH-001..011; AC-001, AC-008
 - **Work:** migrations/types/services for vehicles, mileage history, components, modifications, usage profiles; RLS policies.
