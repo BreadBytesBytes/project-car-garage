@@ -112,7 +112,7 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P0-09 — Create shared domain/service conventions
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** P0-01
 - **Related:** Appendix B; NFR-009
 - **Work:** define service result/error conventions, validation approach, domain types, repository/query boundary, UTC/timezone conventions.
