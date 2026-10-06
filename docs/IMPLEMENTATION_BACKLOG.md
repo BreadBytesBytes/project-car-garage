@@ -152,7 +152,7 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P1-03 — VIN-assisted onboarding
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** P1-02
 - **FR/AC:** FR-VEH-001, FR-VEH-002; ADR-006
 - **Work:** vPIC adapter; VIN decode error/fallback handling; decoded identity flows into same confirmation screen as manual entry.

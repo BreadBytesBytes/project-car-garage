@@ -20,6 +20,7 @@ import {
 } from 'react-native';
 
 import { supabase } from '../../lib/supabase';
+import { decodeVin } from '../../services/vpic';
 import { SupabaseVehicleService } from '../../services/vehicles';
 
 const configurationOptions: readonly {
@@ -46,7 +47,11 @@ export default function NewVehicleScreen() {
   const router = useRouter();
   const [configurationState, setConfigurationState] =
     useState<VehicleConfigurationState>('stock');
+  const [decodedVin, setDecodedVin] = useState<string | null>(null);
+  const [decodeMessage, setDecodeMessage] = useState<string | null>(null);
+  const [decoding, setDecoding] = useState(false);
   const [engine, setEngine] = useState('');
+  const [entryMode, setEntryMode] = useState<'manual' | 'vin'>('manual');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [make, setMake] = useState('');
@@ -57,7 +62,9 @@ export default function NewVehicleScreen() {
   const [nickname, setNickname] = useState('');
   const [chassis, setChassis] = useState('');
   const [transmission, setTransmission] = useState('');
+  const [trim, setTrim] = useState('');
   const [usageModes, setUsageModes] = useState<VehicleUsageMode[]>(['street']);
+  const [vin, setVin] = useState('');
   const [year, setYear] = useState('');
 
   function toggleUsage(mode: VehicleUsageMode) {
@@ -66,6 +73,38 @@ export default function NewVehicleScreen() {
         ? current.filter((value) => value !== mode)
         : [...current, mode],
     );
+  }
+
+  async function fillFromVin() {
+    setDecodeMessage(null);
+    setDecoding(true);
+    const enteredYear = Number(year);
+    const result = await decodeVin(
+      vin,
+      Number.isInteger(enteredYear) && enteredYear > 0
+        ? enteredYear
+        : undefined,
+    );
+
+    if (!result.ok) {
+      setDecodedVin(null);
+      setDecodeMessage(
+        `${result.error.message} You can keep entering details manually.`,
+      );
+      setDecoding(false);
+      return;
+    }
+
+    setVin(result.data.vin);
+    setDecodedVin(result.data.vin);
+    if (result.data.year) setYear(String(result.data.year));
+    if (result.data.make) setMake(result.data.make);
+    if (result.data.model) setModel(result.data.model);
+    if (result.data.trim) setTrim(result.data.trim);
+    setDecodeMessage(
+      result.data.warning ?? 'VIN decoded. Confirm or edit the details below.',
+    );
+    setDecoding(false);
   }
 
   async function submit() {
@@ -107,7 +146,9 @@ export default function NewVehicleScreen() {
         year: Number(year),
         make,
         model,
+        trim,
         nickname,
+        vin: entryMode === 'vin' ? (decodedVin ?? undefined) : undefined,
         configurationState,
         mileage: Number(mileage),
         mileageUnit,
@@ -146,6 +187,64 @@ export default function NewVehicleScreen() {
           Start simple. You can fill in more later.
         </Text>
 
+        <Text style={styles.label}>How would you like to add it?</Text>
+        <ChoiceRow
+          options={[
+            { label: 'Enter manually', value: 'manual' },
+            { label: 'Decode a VIN', value: 'vin' },
+          ]}
+          selected={[entryMode]}
+          onPress={(value) => {
+            const mode = value as 'manual' | 'vin';
+            setEntryMode(mode);
+            setDecodeMessage(null);
+          }}
+        />
+
+        {entryMode === 'vin' ? (
+          <View style={styles.vinSection}>
+            <Field
+              autoCapitalize="characters"
+              autoCorrect={false}
+              label="VIN"
+              maxLength={17}
+              onChangeText={(value) => {
+                setVin(value);
+                setDecodedVin(null);
+                setDecodeMessage(null);
+              }}
+              value={vin}
+            />
+            <Text style={styles.providerNote}>
+              NHTSA data fills vehicle identity only. Confirm every field before
+              saving, especially for a modified vehicle.
+            </Text>
+            <Button
+              accessibilityLabel="Decode VIN"
+              accessibilityState={{ disabled: decoding }}
+              disabled={decoding}
+              onPress={() => void fillFromVin()}
+              style={styles.decodeButton}
+            >
+              {decoding ? (
+                <ActivityIndicator color="#ffffff" />
+              ) : (
+                <ButtonText style={styles.saveText}>Decode VIN</ButtonText>
+              )}
+            </Button>
+            {decodeMessage ? (
+              <Text
+                accessibilityLiveRegion="polite"
+                style={styles.decodeMessage}
+              >
+                {decodeMessage}
+              </Text>
+            ) : null}
+          </View>
+        ) : null}
+
+        <Text style={styles.sectionTitle}>Confirm vehicle identity</Text>
+
         <Field
           label="Year"
           onChangeText={setYear}
@@ -154,6 +253,7 @@ export default function NewVehicleScreen() {
         />
         <Field label="Make" onChangeText={setMake} value={make} />
         <Field label="Model" onChangeText={setModel} value={model} />
+        <Field label="Trim (optional)" onChangeText={setTrim} value={trim} />
         <Field
           label="Nickname (optional)"
           onChangeText={setNickname}
@@ -297,6 +397,14 @@ const styles = StyleSheet.create({
   choices: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 20 },
   container: { backgroundColor: tokens.colors.background, flex: 1 },
   content: { alignSelf: 'center', maxWidth: 560, padding: 24, width: '100%' },
+  decodeButton: {
+    alignItems: 'center',
+    backgroundColor: tokens.colors.text,
+    borderRadius: tokens.radius,
+    minHeight: 48,
+    padding: 14,
+  },
+  decodeMessage: { color: tokens.colors.text, marginTop: 10 },
   error: { color: '#b91c1c', marginBottom: 12 },
   field: { marginBottom: 16 },
   heading: {
@@ -315,6 +423,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
   },
   label: { color: tokens.colors.text, fontWeight: '600', marginBottom: 8 },
+  providerNote: { color: tokens.colors.muted, marginBottom: 12 },
   saveButton: {
     alignItems: 'center',
     backgroundColor: tokens.colors.accent,
@@ -329,4 +438,5 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     marginBottom: 12,
   },
+  vinSection: { marginBottom: 24 },
 });
