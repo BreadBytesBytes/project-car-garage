@@ -153,8 +153,9 @@ test('Expo Router protects authenticated and unauthenticated screens', async () 
   assert.match(layout, /<Stack\.Screen name="sign-in"/);
   assert.match(layout, /<Stack\.Screen name="recover-account"/);
   assert.match(layout, /<Stack\.Screen name="reset-password"/);
-  assert.match(layout, /<Stack\.Screen name="index"/);
-  assert.match(layout, /<Stack\.Screen name="account"/);
+  assert.match(layout, /<Stack\.Screen name="\(tabs\)"/);
+  assert.match(layout, /<Stack\.Screen\s+name="account"/);
+  assert.match(layout, /<Stack\.Screen[\s\S]*name="quick-add"/);
   assert.ok(
     layout.indexOf('<Stack.Screen name="sign-in"') <
       layout.indexOf('<Stack.Screen name="reset-password"'),
@@ -180,6 +181,6 @@ test('signed-out recovery messages do not reveal account existence', async () =>
   assert.match(screen, /If an account matches that email/);
   assert.match(screen, /If that account still needs confirmation/);
   assert.doesNotMatch(screen, /router\.back/);
-  assert.doesNotMatch(accountScreen, /router\.back/);
+  assert.doesNotMatch(accountScreen, /router\.(back|replace)/);
   assert.match(resetScreen, /if \(!session \|\| !recovering\)/);
 });
