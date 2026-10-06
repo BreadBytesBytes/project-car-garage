@@ -64,20 +64,27 @@ Phase 0 creates these code folders without implementing product features.
 
 ## Development
 
-Prerequisites: Node.js 24.19.0 and npm 12.
+Prerequisites: Node.js 24.19.0, npm 12, and Expo Go or an Expo development
+build on the test device.
+
+First-time setup (including Git Bash on Windows):
 
 ```sh
 npm ci
+cp .env.example .env.local
 npm run check
 npm start
 ```
 
-Run the universal web shell with `npm run web`, or verify its production bundle
-with `npm run export:web`.
+Set `EXPO_PUBLIC_SUPABASE_URL` and `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in
+`.env.local` before starting Expo. Use the hosted project's Connect values when
+testing on a physical phone; `127.0.0.1` local Supabase URLs point back to the
+phone itself. Restart Expo after changing environment variables, then scan the
+terminal QR code with the iPhone camera or Expo Go.
 
-Copy `.env.example` to `.env.local` and set the public URL and publishable key
-printed by `npm run supabase:status`. Never commit local `.env` files, database
-passwords, access tokens, or service-role keys.
+Run the universal web shell with `npm run web`, or verify its production bundle
+with `npm run export:web`. Never commit local `.env` files, database passwords,
+access tokens, or service-role keys.
 
 ## Local Supabase
 
@@ -94,6 +101,17 @@ npm run supabase:stop
 `supabase/migrations` in filename order. A hosted development project must be
 created and linked interactively before the first `npx supabase db push`; do
 not store the CLI access token or database password in the repository.
+
+Run the complete Phase 0 validation with:
+
+```sh
+npm run check
+npm run export:web
+npx expo install --check
+npm run db:reset
+npm run db:test
+npx supabase db lint --local --level warning
+```
 
 The first migrations create a private profile and one `My Garage` when an Auth
 user is created. Authenticated clients may read and update only their own rows;
