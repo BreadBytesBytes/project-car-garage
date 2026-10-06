@@ -28,8 +28,9 @@
   },
   "devDependencies": {
     "eslint": "9.39.5",
-    "eslint-config-expo": "57.0.1",
+    "eslint-config-expo": "~57.0.2",
+    "eslint-import-resolver-typescript": "^3.10.1",
     "prettier": "3.9.6",
-    "supabase": "^2.115.0"
+    "supabase": "^2.120.0"
   }
 }

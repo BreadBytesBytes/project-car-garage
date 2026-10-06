@@ -24,7 +24,7 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P0-01 — Initialize monorepo and tooling
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** none
 - **Related:** ADR-001..004, ADR-020, ADR-024; NFR-009..010
 - **Work:**
@@ -38,7 +38,7 @@ Use one of: `TODO`, `IN PROGRESS`, `BLOCKED`, `DONE`, `DESCOPED`.
 
 ### P0-02 — Establish CI quality gates
 
-- **Status:** TODO
+- **Status:** DONE
 - **Depends on:** P0-01
 - **Related:** NFR-003, NFR-009; Section 17
 - **Work:** add CI workflow for install, format check, lint, typecheck, unit tests; no deployment required yet.
