@@ -105,3 +105,5 @@ export function isValidTimeZone(timeZone: string) {
     return false;
   }
 }
+
+export type * from './vehicle';
